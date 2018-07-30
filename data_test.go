@@ -49,3 +49,41 @@ func TestExtractScorers(t *testing.T) {
 		t.Fatalf("scorers informations differ: %+v\n!=\n%+v", expected, scorers)
 	}
 }
+
+func TestExtractMatch(t *testing.T) {
+
+	filename := "datatest/match.txt"
+	data, err := ioutil.ReadFile(filename)
+	if err != nil {
+		t.Fatal("Failed to read file: " + filename + " (" + err.Error() + ")")
+	}
+
+	scorers, err := extractMatchs(string(data))
+	if err != nil {
+		t.Fatalf("could not read test file match.txt: %s", err)
+	}
+
+	expected := []Match{
+		Match{
+			"02/12/2017",
+			"PSG",
+			"6 - 1",
+			"MARSEILLE",
+		},
+		Match{
+			"02/12/2017",
+			"EAG",
+			"5 - 4",
+			"BREST",
+		},
+		Match{
+			"02/12/2017",
+			"NANTES",
+			"0 - 11",
+			"LILLE",
+		},
+	}
+	if !reflect.DeepEqual(scorers, expected) {
+		t.Fatalf("scorers informations differ: %+v\n!=\n%+v", expected, scorers)
+	}
+}
