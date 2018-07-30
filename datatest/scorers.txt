@@ -1,0 +1,39 @@
+<table class="resultat">
+   <tbody>
+      <tr>
+         <th>Pl</th>
+         <th>Joueur</th>
+         <th>Equipe</th>
+         <th>Matchs</th>
+         <th>Buts</th>
+      </tr>
+      <tr class="separate">
+         <td><strong>1</strong></td>
+         <td class="left"><a>PLAYER A</a></td>
+         <td class="left"><a>CLUB 1</a></td>
+         <td>22</td>
+         <td>49</td>
+      </tr>
+      <tr class="odd ">
+         <td><strong>2</strong></td>
+         <td class="left"><a>PLAYER B</a></td>
+         <td class="left"><a>CLUB 2</a></td>
+         <td>22</td>
+         <td>30</td>
+      </tr>
+      <tr class="separate">
+         <td></td>
+         <td class="left"><a>PLAYER C</a></td>
+         <td class="left"><a>CLUB 2</a></td>
+         <td>21</td>
+         <td>30</td>
+      </tr>
+      <tr class="odd ">
+         <td><strong>3</strong></td>
+         <td class="left"><a>PLAYER D</a></td>
+         <td class="left"><a>CLUB 4</a></td>
+         <td>22</td>
+         <td>27</td>
+      </tr>
+   </tbody>
+</table>
