@@ -2,19 +2,24 @@ package data
 
 import (
 	"io/ioutil"
+	"path/filepath"
 	"reflect"
 	"testing"
 )
 
-func TestExtractScorers(t *testing.T) {
-
-	filename := "datatest/scorers.txt"
-	data, err := ioutil.ReadFile(filename)
+func readFile(t *testing.T, filename string) string {
+	path := filepath.Join("datatest", filename)
+	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		t.Fatal("Failed to read file: " + filename + " (" + err.Error() + ")")
 	}
+	return string(data)
+}
 
-	scorers, err := extractScorers(string(data))
+func TestExtractScorers(t *testing.T) {
+
+	data := readFile(t, "scorers.txt")
+	scorers, err := extractScorers(data)
 	if err != nil {
 		t.Fatalf("could not read test file scorers.txt: %s", err)
 	}
@@ -52,13 +57,8 @@ func TestExtractScorers(t *testing.T) {
 
 func TestExtractMatch(t *testing.T) {
 
-	filename := "datatest/match.txt"
-	data, err := ioutil.ReadFile(filename)
-	if err != nil {
-		t.Fatal("Failed to read file: " + filename + " (" + err.Error() + ")")
-	}
-
-	scorers, err := extractMatchs(string(data))
+	data := readFile(t, "match.txt")
+	scorers, err := extractMatchs(data)
 	if err != nil {
 		t.Fatalf("could not read test file match.txt: %s", err)
 	}
@@ -85,5 +85,50 @@ func TestExtractMatch(t *testing.T) {
 	}
 	if !reflect.DeepEqual(scorers, expected) {
 		t.Fatalf("scorers informations differ: %+v\n!=\n%+v", expected, scorers)
+	}
+}
+
+func TestExtractRanking(t *testing.T) {
+
+	data := readFile(t, "ranking.txt")
+	ranking, err := extractRanking(data)
+	if err != nil {
+		t.Fatalf("could not read test file ranking.txt: %s", err)
+	}
+
+	expected := []Rank{
+		Rank{
+			"PSG",
+			"55",
+			"22",
+			"17",
+			"4",
+			"1",
+			"120",
+			"44",
+		},
+		Rank{
+			"EAG",
+			"53",
+			"22",
+			"16",
+			"5",
+			"1",
+			"107",
+			"36",
+		},
+		Rank{
+			"NANTES",
+			"49",
+			"22",
+			"16",
+			"1",
+			"5",
+			"103",
+			"62",
+		},
+	}
+	if !reflect.DeepEqual(ranking, expected) {
+		t.Fatalf("scorers informations differ: %+v\n!=\n%+v", expected, ranking)
 	}
 }
