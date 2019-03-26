@@ -1,4 +1,4 @@
-package data
+package parsers
 
 import (
 	"golang.org/x/net/html"
