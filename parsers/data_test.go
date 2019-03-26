@@ -55,36 +55,36 @@ func TestExtractScorers(t *testing.T) {
 	}
 }
 
-func TestExtractMatch(t *testing.T) {
+func TestExtractFixtures(t *testing.T) {
 
-	data := readFile(t, "match.txt")
-	scorers, err := extractMatchs(data)
+	data := readFile(t, "fixtures.txt")
+	fixtures, err := ExtractFixtures(data)
 	if err != nil {
-		t.Fatalf("could not read test file match.txt: %s", err)
+		t.Fatalf("could not read test file fixtures.txt: %s", err)
 	}
 
-	expected := []Match{
-		Match{
+	expected := []Fixture{
+		Fixture{
 			"02/12/2017",
 			"PSG",
 			"6 - 1",
 			"MARSEILLE",
 		},
-		Match{
+		Fixture{
 			"02/12/2017",
 			"EAG",
 			"5 - 4",
 			"BREST",
 		},
-		Match{
+		Fixture{
 			"02/12/2017",
 			"NANTES",
 			"0 - 11",
 			"LILLE",
 		},
 	}
-	if !reflect.DeepEqual(scorers, expected) {
-		t.Fatalf("scorers informations differ: %+v\n!=\n%+v", expected, scorers)
+	if !reflect.DeepEqual(fixtures, expected) {
+		t.Fatalf("fixtures informations differ: %+v\n!=\n%+v", expected, fixtures)
 	}
 }
 

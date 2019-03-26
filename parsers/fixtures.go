@@ -11,20 +11,20 @@ const (
 	out   = uint32(3)
 )
 
-type Match struct {
+type Fixture struct {
 	Date     string
 	HomeTeam string
 	Score    string
 	OutTeam  string
 }
 
-func extractMatchs(value string) ([]Match, error) {
+func ExtractFixtures(value string) ([]Fixture, error) {
 	content, err := html.Parse(strings.NewReader(value))
 	if err != nil {
 		return nil, err
 	}
 
-	matchs := []Match{}
+	fixtures := []Fixture{}
 	counter := uint32(0)
 	date := ""
 
@@ -40,68 +40,68 @@ func extractMatchs(value string) ([]Match, error) {
 		}
 	}
 
-	// Extract match informations
-	var extractData func(*html.Node, *Match)
-	extractData = func(n *html.Node, match *Match) {
+	// Extract fixture informations
+	var extractData func(*html.Node, *Fixture)
+	extractData = func(n *html.Node, fixture *Fixture) {
 		data := strings.TrimSpace(n.Data)
 		if n.Type == html.TextNode && len(data) > 0 {
 			switch counter {
 			case home:
-				match.HomeTeam = data
+				fixture.HomeTeam = data
 			case score:
-				match.Score = data
+				fixture.Score = data
 			case out:
-				match.OutTeam = data
+				fixture.OutTeam = data
 			}
 		}
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
-			extractData(c, match)
+			extractData(c, fixture)
 		}
 	}
 
-	// Extract match
-	var extractMatch func(*html.Node, *Match)
-	extractMatch = func(n *html.Node, match *Match) {
+	// Extract fixture
+	var extractfixture func(*html.Node, *Fixture)
+	extractfixture = func(n *html.Node, fixture *Fixture) {
 		if n.Type == html.ElementNode && n.Data == "td" {
 			for _, a := range n.Attr {
 				if a.Key == "class" && a.Val == "right" {
 					counter++
-					extractData(n, match)
+					extractData(n, fixture)
 				}
 				if a.Key == "class" && a.Val == "center score" {
 					counter++
-					extractData(n, match)
+					extractData(n, fixture)
 				}
 				if a.Key == "class" && a.Val == "left" {
 					counter++
-					extractData(n, match)
+					extractData(n, fixture)
 				}
 			}
 		}
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
-			extractMatch(c, match)
+			extractfixture(c, fixture)
 		}
 	}
 
-	// Extract matchs
-	var extractMatchs func(*html.Node)
-	extractMatchs = func(n *html.Node) {
+	// Extract fixtures
+	var extractFixtures func(*html.Node)
+	extractFixtures = func(n *html.Node) {
 		if n.Type == html.ElementNode && n.Data == "caption" {
 			extractDate(n)
 		}
 		if n.Type == html.ElementNode && n.Data == "tr" {
-			match := Match{}
-			match.Date = date
+			fixture := Fixture{}
+			fixture.Date = date
 			counter = uint32(0)
-			extractMatch(n, &match)
-			if len(match.HomeTeam) > 0 && len(match.Score) > 0 && len(match.OutTeam) > 0 {
-				matchs = append(matchs, match)
+			extractfixture(n, &fixture)
+			if len(fixture.HomeTeam) > 0 && len(fixture.Score) > 0 && len(fixture.OutTeam) > 0 {
+				fixtures = append(fixtures, fixture)
 			}
 		}
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
-			extractMatchs(c)
+			extractFixtures(c)
 		}
 	}
-	extractMatchs(content)
-	return matchs, nil
+	extractFixtures(content)
+	return fixtures, nil
 }
