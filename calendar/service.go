@@ -130,8 +130,7 @@ func convertDates(date string) (time.Time, time.Time, error) {
 	return start, start.Add(time.Hour * 24), nil
 }
 
-func (s *Servirce) createEvents(league string, fixtures []parsers.Fixture) error {
-	calendarID := "primary"
+func (s *Servirce) createEvents(league, calendarId string, fixtures []parsers.Fixture) error {
 	for _, v := range fixtures {
 		start, end, err := convertDates(v.Date)
 		if err != nil {
@@ -149,7 +148,7 @@ func (s *Servirce) createEvents(league string, fixtures []parsers.Fixture) error
 				TimeZone: "Europe/Paris",
 			},
 		}
-		_, err = s.calendar.Events.Insert(calendarID, event).Do()
+		_, err = s.calendar.Events.Insert(calendarId, event).Do()
 		if err != nil {
 			return err
 		}

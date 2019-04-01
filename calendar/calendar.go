@@ -20,6 +20,7 @@ Then creates, in google calendar, one event by fixture.
 	number := flag.Int("number", 22, "fixtures count")
 	team := flag.String("team", "", "specific team")
 	league := flag.String("league", "N2", "league team")
+	calendarId := flag.String("calendar", "primary", "calendar identifier")
 	flag.Parse()
 
 	dom, err := extractDom(*address, *number)
@@ -37,7 +38,7 @@ Then creates, in google calendar, one event by fixture.
 		log.Fatalf("Unable to create calendar service: %v", err)
 	}
 
-	err = srv.createEvents(*league, fixtures)
+	err = srv.createEvents(*league, *calendarId, fixtures)
 	if err != nil {
 		log.Fatalf("Unable to create events: %v", err)
 	}
