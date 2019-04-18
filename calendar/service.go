@@ -105,7 +105,7 @@ func createCalendarService() (*Servirce, error) {
 	}, nil
 }
 
-func convertDates(date string) (time.Time, time.Time, error) {
+func convertDate(date string) (time.Time, time.Time, error) {
 	result := strings.Split(date, "/")
 	if len(result) != 3 {
 		return time.Time{}, time.Time{},
@@ -132,7 +132,7 @@ func convertDates(date string) (time.Time, time.Time, error) {
 
 func (s *Servirce) createEvents(league, calendarId string, fixtures []parsers.Fixture) error {
 	for _, v := range fixtures {
-		start, end, err := convertDates(v.Date)
+		start, end, err := convertDate(v.Date)
 		if err != nil {
 			return err
 		}

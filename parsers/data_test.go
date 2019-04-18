@@ -11,7 +11,7 @@ func readFile(t *testing.T, filename string) string {
 	path := filepath.Join("datatest", filename)
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
-		t.Fatal("Failed to read file: " + filename + " (" + err.Error() + ")")
+		t.Error("Failed to read file: " + filename + " (" + err.Error() + ")")
 	}
 	return string(data)
 }
@@ -21,7 +21,7 @@ func TestExtractScorers(t *testing.T) {
 	data := readFile(t, "scorers.txt")
 	scorers, err := extractScorers(data)
 	if err != nil {
-		t.Fatalf("could not read test file scorers.txt: %s", err)
+		t.Errorf("could not read test file scorers.txt: %s", err)
 	}
 
 	expected := []Scorer{
@@ -51,7 +51,7 @@ func TestExtractScorers(t *testing.T) {
 		},
 	}
 	if !reflect.DeepEqual(scorers, expected) {
-		t.Fatalf("scorers informations differ: %+v\n!=\n%+v", expected, scorers)
+		t.Errorf("scorers informations differ: %+v\n!=\n%+v", expected, scorers)
 	}
 }
 
@@ -60,7 +60,7 @@ func TestExtractFixtures(t *testing.T) {
 	data := readFile(t, "fixtures.txt")
 	fixtures, err := ExtractFixtures(data)
 	if err != nil {
-		t.Fatalf("could not read test file fixtures.txt: %s", err)
+		t.Errorf("could not read test file fixtures.txt: %s", err)
 	}
 
 	expected := []Fixture{
@@ -84,7 +84,7 @@ func TestExtractFixtures(t *testing.T) {
 		},
 	}
 	if !reflect.DeepEqual(fixtures, expected) {
-		t.Fatalf("fixtures informations differ: %+v\n!=\n%+v", expected, fixtures)
+		t.Errorf("fixtures informations differ: %+v\n!=\n%+v", expected, fixtures)
 	}
 }
 
@@ -93,7 +93,7 @@ func TestExtractRanking(t *testing.T) {
 	data := readFile(t, "ranking.txt")
 	ranking, err := extractRanking(data)
 	if err != nil {
-		t.Fatalf("could not read test file ranking.txt: %s", err)
+		t.Errorf("could not read test file ranking.txt: %s", err)
 	}
 
 	expected := []Rank{
@@ -129,6 +129,6 @@ func TestExtractRanking(t *testing.T) {
 		},
 	}
 	if !reflect.DeepEqual(ranking, expected) {
-		t.Fatalf("scorers informations differ: %+v\n!=\n%+v", expected, ranking)
+		t.Errorf("scorers informations differ: %+v\n!=\n%+v", expected, ranking)
 	}
 }
