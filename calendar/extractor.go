@@ -1,12 +1,11 @@
 package main
 
 import (
-	"errors"
 	"fmt"
+	"github.com/lgylgy/rinkgo/parsers"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"rinkgo/parsers"
 	"strconv"
 	"strings"
 )
@@ -32,7 +31,7 @@ func extractDom(address string, count int) ([]string, error) {
 		defer rpy.Body.Close()
 
 		if rpy.StatusCode != http.StatusOK {
-			return result, errors.New(fmt.Sprintf("Unable to retrieve fixture '%v': %v", i, rpy.Status))
+			return result, fmt.Errorf("Unable to retrieve fixture '%v': %v", i, rpy.Status)
 		}
 
 		data, err := ioutil.ReadAll(rpy.Body)

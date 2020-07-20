@@ -2,8 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
+	"github.com/lgylgy/rinkgo/parsers"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -12,7 +12,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"rinkgo/parsers"
 	"strconv"
 	"strings"
 	"time"
@@ -29,7 +28,7 @@ func getClient(config *oauth2.Config) *http.Client {
 	tok, err := tokenFromFile(tokFile)
 	if err != nil {
 		tok = getTokenFromWeb(config)
-		saveToken(tokFile, tok)
+		_ = saveToken(tokFile, tok)
 	}
 	return config.Client(context.Background(), tok)
 }
@@ -65,14 +64,14 @@ func tokenFromFile(file string) (*oauth2.Token, error) {
 }
 
 // Saves a token to a file path.
-func saveToken(path string, token *oauth2.Token) {
+func saveToken(path string, token *oauth2.Token) error {
 	fmt.Printf("Saving credential file to: %s\n", path)
 	f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
 	if err != nil {
 		log.Fatalf("Unable to cache oauth token: %v", err)
 	}
 	defer f.Close()
-	json.NewEncoder(f).Encode(token)
+	return json.NewEncoder(f).Encode(token)
 }
 
 //// >>
@@ -85,19 +84,19 @@ func createCalendarService() (*Servirce, error) {
 
 	b, err := ioutil.ReadFile("credentials.json")
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf("Unable to read client secret file: %v", err))
+		return nil, fmt.Errorf("Unable to read client secret file: %v", err)
 	}
 
 	// If modifying these scopes, delete your previously saved token.json.
 	config, err := google.ConfigFromJSON(b, calendar.CalendarScope)
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf("Unable to parse client secret file to config: %v", err))
+		return nil, fmt.Errorf("Unable to parse client secret file to config: %v", err)
 	}
 
 	client := getClient(config)
 	srv, err := calendar.New(client)
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf("Unable to retrieve Calendar client: %v", err))
+		return nil, fmt.Errorf("Unable to retrieve Calendar client: %v", err)
 	}
 
 	return &Servirce{
@@ -109,22 +108,22 @@ func convertDate(date string) (time.Time, time.Time, error) {
 	result := strings.Split(date, "/")
 	if len(result) != 3 {
 		return time.Time{}, time.Time{},
-			errors.New(fmt.Sprintf("Unable to parse date: %s", date))
+			fmt.Errorf("Unable to parse date: %s", date)
 	}
 	y, err := strconv.ParseInt(result[2], 10, 64)
 	if err != nil {
 		return time.Time{}, time.Time{},
-			errors.New(fmt.Sprintf("Unable to parse date: %s", date))
+			fmt.Errorf("Unable to parse date: %s", date)
 	}
 	m, err := strconv.ParseInt(result[1], 10, 64)
 	if err != nil {
 		return time.Time{}, time.Time{},
-			errors.New(fmt.Sprintf("Unable to parse date: %s", date))
+			fmt.Errorf("Unable to parse date: %s", date)
 	}
 	d, err := strconv.ParseInt(result[0], 10, 64)
 	if err != nil {
 		return time.Time{}, time.Time{},
-			errors.New(fmt.Sprintf("Unable to parse date: %s", date))
+			fmt.Errorf("Unable to parse date: %s", date)
 	}
 	start := time.Date(int(y), time.Month(m), int(d), 0, 0, 0, 0, time.UTC)
 	return start, start.Add(time.Hour * 24), nil
