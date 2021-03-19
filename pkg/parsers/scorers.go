@@ -1,8 +1,9 @@
 package parsers
 
 import (
-	"golang.org/x/net/html"
 	"strings"
+
+	"golang.org/x/net/html"
 )
 
 type Scorer struct {

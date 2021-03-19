@@ -5,24 +5,12 @@ import (
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
+	"github.com/lgylgy/rinkgo/pkg/api"
 )
 
-type Entry struct {
-	Season string
-	Team   string
-	Event  string
-	Matchs uint32
-	Goals  uint32
-}
-
-type Player struct {
-	Name    string
-	History []*Entry
-}
-
-func ParsePlayer(data string) (*Player, error) {
-	player := &Player{
-		History: []*Entry{},
+func ParsePlayer(data string) (*api.Player, error) {
+	player := &api.Player{
+		History: []*api.Entry{},
 	}
 
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(data))
@@ -41,7 +29,7 @@ func ParsePlayer(data string) (*Player, error) {
 
 	doc.Find(".competitor-stats-tab").Each(func(_ int, div *goquery.Selection) {
 		div.Find("tbody tr").Each(func(_ int, tr *goquery.Selection) {
-			entry := &Entry{}
+			entry := &api.Entry{}
 			tr.Find("td").Each(func(ix int, td *goquery.Selection) {
 				switch ix {
 				case 0:

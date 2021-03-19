@@ -3,11 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/lgylgy/rinkgo/parsers"
-	"golang.org/x/net/context"
-	"golang.org/x/oauth2"
-	"golang.org/x/oauth2/google"
-	"google.golang.org/api/calendar/v3"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -15,6 +10,12 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/lgylgy/rinkgo/pkg/parsers"
+	"golang.org/x/net/context"
+	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/google"
+	"google.golang.org/api/calendar/v3"
 )
 
 //// << following code https://developers.google.com/calendar/quickstart/go

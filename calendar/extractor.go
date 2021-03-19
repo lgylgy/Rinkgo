@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/lgylgy/rinkgo/parsers"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
+
+	"github.com/lgylgy/rinkgo/pkg/parsers"
 )
 
 func extractDom(address string, count int) ([]string, error) {

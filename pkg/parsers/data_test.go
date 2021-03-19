@@ -25,25 +25,25 @@ func TestExtractScorers(t *testing.T) {
 	}
 
 	expected := []Scorer{
-		Scorer{
+		{
 			"PLAYER A",
 			"CLUB 1",
 			"22",
 			"49",
 		},
-		Scorer{
+		{
 			"PLAYER B",
 			"CLUB 2",
 			"22",
 			"30",
 		},
-		Scorer{
+		{
 			"PLAYER C",
 			"CLUB 2",
 			"21",
 			"30",
 		},
-		Scorer{
+		{
 			"PLAYER D",
 			"CLUB 4",
 			"22",
@@ -64,19 +64,19 @@ func TestExtractFixtures(t *testing.T) {
 	}
 
 	expected := []Fixture{
-		Fixture{
+		{
 			"02/12/2017",
 			"PSG",
 			"6 - 1",
 			"MARSEILLE",
 		},
-		Fixture{
+		{
 			"02/12/2017",
 			"EAG",
 			"5 - 4",
 			"BREST",
 		},
-		Fixture{
+		{
 			"02/12/2017",
 			"NANTES",
 			"0 - 11",

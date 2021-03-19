@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package pstat;
+
+option go_package="github.com/lgylgy/rinkgo/pkg/services/pstat";
+
+service PStatService{
+    rpc GetHistory(Request) returns (History);
+}
+
+message Request {
+    int32 playerID = 1;
+}
+
+message History {
+    int32 playerID         = 1;
+    string name            = 2;
+    repeated Entry entries = 3;
+}
+
+message Entry {
+    string season = 1;
+    string team   = 2;
+    string event  = 3;
+    int32 matchs  = 4;
+    int32 goals   = 6;
+}

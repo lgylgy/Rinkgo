@@ -3,6 +3,7 @@ package parsers
 import (
 	"testing"
 
+	"github.com/lgylgy/rinkgo/pkg/api"
 	"github.com/stretchr/testify/require"
 )
 
@@ -14,7 +15,7 @@ func TestParsePlayer(t *testing.T) {
 	}
 	require.Equal(t, player.Name, "ZIDANE")
 	require.Equal(t, player.History,
-		[]*Entry{
+		[]*api.Entry{
 			{
 				Season: "2020/2021",
 				Team:   "PSG",
