@@ -1,12 +1,23 @@
 package parsers
 
 import (
-	"strconv"
+	"io/ioutil"
+	"path/filepath"
 	"strings"
+	"testing"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/lgylgy/rinkgo/pkg/api"
 )
+
+func readFile(t *testing.T, filename string) string {
+	path := filepath.Join("datatest", filename)
+	data, err := ioutil.ReadFile(path)
+	if err != nil {
+		t.Error("Failed to read file: " + filename + " (" + err.Error() + ")")
+	}
+	return string(data)
+}
 
 func ParsePlayer(data string) (*api.Player, error) {
 	player := &api.Player{
@@ -39,15 +50,9 @@ func ParsePlayer(data string) (*api.Player, error) {
 				case 2:
 					entry.Event = td.Text()
 				case 3:
-					i, err := strconv.Atoi(td.Text())
-					if err == nil {
-						entry.Matchs = uint32(i)
-					}
+					entry.Matchs = convertToInteger(td)
 				case 4:
-					i, err := strconv.Atoi(td.Text())
-					if err == nil {
-						entry.Goals = uint32(i)
-					}
+					entry.Goals = convertToInteger(td)
 				}
 			})
 			player.History = append(player.History, entry)

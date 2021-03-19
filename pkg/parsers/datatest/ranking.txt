@@ -1,57 +1,74 @@
-<table class="resultat">
-   <caption>Classement général</caption>
-   <tbody>
-      <tr>
-         <th>Pl</th>
-         <th>Equipe</th>
-         <th>Pts</th>
-         <th>J</th>
-         <th>V.</th>
-         <th>N.</th>
-         <th>P.</th>
-         <th>F.</th>
-         <th>BP</th>
-         <th>BC</th>
-         <th>Diff</th>
-      </tr>
-      <tr class="separate">
-         <td><strong>1</strong></td>
-         <td class="left"><a>PSG</a></td>
-         <td><strong>55</strong></td>
-         <td>22</td>
-         <td>17</td>
-         <td>4</td>
-         <td>1</td>
-         <td>0</td>
-         <td>120</td>
-         <td>44</td>
-         <td>76</td>
-      </tr>
-      <tr class="odd separate">
-         <td><strong>2</strong></td>
-         <td class="left"><a>EAG</a></td>
-         <td><strong>53</strong></td>
-         <td>22</td>
-         <td>16</td>
-         <td>5</td>
-         <td>1</td>
-         <td>0</td>
-         <td>107</td>
-         <td>36</td>
-         <td>71</td>
-      </tr>
-      <tr class="separate">
-         <td><strong>3</strong></td>
-         <td class="left"><a>NANTES</a></td>
-         <td><strong>49</strong></td>
-         <td>22</td>
-         <td>16</td>
-         <td>1</td>
-         <td>5</td>
-         <td>0</td>
-         <td>103</td>
-         <td>62</td>
-         <td>41</td>
-      </tr>
-   </tbody>
+<table class="ranking-table">
+    <thead>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td><a href="/team">PSG</a></td>
+            <td>9</td>
+            <td>3</td>
+            <td>3</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td></td>
+            <td>22</td>
+            <td>8</td>
+            <td>14</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td><a href="/team">OL</a></td>
+            <td>7</td>
+            <td>3</td>
+            <td>2</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td></td>
+            <td>14</td>
+            <td>8</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td><a href="/team">OM</a></td>
+            <td>6</td>
+            <td>3</td>
+            <td>2</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+            <td></td>
+            <td>22</td>
+            <td>8</td>
+            <td>14</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td><a href="/team">LOSC</a></td>
+            <td>6</td>
+            <td>2</td>
+            <td>2</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td></td>
+            <td>17</td>
+            <td>5</td>
+            <td>12</td>
+        </tr>
+    </tbody>
 </table>

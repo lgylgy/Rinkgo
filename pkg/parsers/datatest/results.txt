@@ -1,0 +1,64 @@
+<table class="results-table">
+  <tbody>
+    <tr class="tr-date">
+      <td colspan="5">24/12/2021</td>
+    </tr>
+    <tr class="tr-match">
+      <td class="equipe-name">
+        <a class="text-link" href="/team">PSG</a>
+      </td>
+      <td class="match-score">
+        <a class="score-link" href="/matchs">
+          <div class="score">
+            <span class="winner"> 4 </span>
+            -
+            <span class=""> 0 </span>
+          </div>
+        </a>
+        <div class="place">20:30 - Parc des princes</div>
+      </td>
+      <td class="equipe-name">
+        <a class="text-link" href="/team">OM</a>
+      </td>
+    </tr>
+    <tr class="tr-match">
+      <td class="equipe-name">
+        <a class="text-link" href="/team">EAG</a>
+      </td>
+      <td class="match-score">
+        <a class="score-link" href="/matchs">
+          <div class="score">
+            <span class="winner"> 3 </span>
+            -
+            <span class=""> 2 </span>
+          </div>
+        </a>
+        <div class="place">20:30 - roudourou</div>
+      </td>
+      <td class="equipe-name">
+        <a class="text-link" href="/team">SB29</a>
+      </td>
+    </tr>
+    <tr class="tr-date">
+      <td colspan="5">23/01/2022</td>
+    </tr>
+    <tr class="tr-match">
+      <td class="equipe-name">
+        <a class="text-link" href="/team">MONACO</a>
+      </td>
+      <td class="match-score">
+        <a class="score-link" href="/matchs">
+          <div class="score">
+            <span class=" "> 2 </span>
+            -
+            <span class="winner"> 4 </span>
+          </div>
+        </a>
+        <div class="place">20:55 - Louis 2</div>
+      </td>
+      <td class="equipe-name">
+        <a class="text-link" href="/team">RENNES</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

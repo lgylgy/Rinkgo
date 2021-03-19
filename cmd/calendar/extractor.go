@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/lgylgy/rinkgo/pkg/api"
 	"github.com/lgylgy/rinkgo/pkg/parsers"
 )
 
@@ -44,20 +45,20 @@ func extractDom(address string, count int) ([]string, error) {
 	return result, nil
 }
 
-func extractFixtures(team string, dom []string) ([]parsers.Fixture, error) {
-	result := []parsers.Fixture{}
+func extractFixtures(team string, dom []string) ([]*api.Result, error) {
+	results := []*api.Result{}
 
 	for _, v := range dom {
-		fixtures, err := parsers.ExtractFixtures(v)
+		data, err := parsers.ParseResults(v)
 		if err != nil {
-			return result, err
+			return results, err
 		}
 
-		for _, t := range fixtures {
+		for _, t := range data {
 			if t.HomeTeam == team || t.OutTeam == team {
-				result = append(result, t)
+				results = append(results, t)
 			}
 		}
 	}
-	return result, nil
+	return results, nil
 }

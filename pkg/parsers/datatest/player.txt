@@ -12,20 +12,11 @@
         <div class="container">
             <table class="competitor-stats-tab">
                 <thead>
-                    <tr>
-                    <th class="stats-tab-saison">Saison</th>
-                    <th class="stats-tab-club">Club</th>
-                    <th class="stats-tab-compet">Compétition</th>
-                    <th class="stats-tab-mj">Matchs</th>
-                    <th class="stats-tab-buts">Buts</th>
-                    <th class="stats-tab-pen">Pénalités</th>
-                    <th class="stats-tab-assists">Assists.</th>
-                    </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>2020/2021</td>
-                        <td><a href="/clubs/94062">PSG</a></td>
+                        <td><a href="/league">PSG</a></td>
                         <td>Ligue 1</td>
                         <td>1</td>
                         <td>1</td>
@@ -34,7 +25,7 @@
                     </tr>
                     <tr>
                         <td>2019/2020</td>
-                        <td><a href="/clubs/94062">PSG</a></td>
+                        <td><a href="/league">PSG</a></td>
                         <td>Ligue 1</td>
                         <td>1</td>
                         <td>0</td>
@@ -43,7 +34,7 @@
                     </tr>
                     <tr>
                         <td>2018/2019</td>
-                        <td><a href="/clubs/94062">LORIENT</a></td>
+                        <td><a href="/league">LORIENT</a></td>
                         <td>Ligue 2</td>
                         <td>8</td>
                         <td>5</td>
@@ -52,7 +43,7 @@
                     </tr>
                     <tr>
                         <td>2017/2018</td>
-                        <td><a href="/clubs/94062">LORIENT</a></td>
+                        <td><a href="/league">LORIENT</a></td>
                         <td>Ligue 2</td>
                         <td>1</td>
                         <td>1</td>
@@ -61,7 +52,7 @@
                     </tr>
                     <tr>
                         <td>2017/2018</td>
-                        <td><a href="/clubs/94062">LORIENT</a></td>
+                        <td><a href="/league">LORIENT</a></td>
                         <td>Coupe de France</td>
                         <td>8</td>
                         <td>2</td>

@@ -1,39 +1,34 @@
-<table class="resultat">
-   <tbody>
-      <tr>
-         <th>Pl</th>
-         <th>Joueur</th>
-         <th>Equipe</th>
-         <th>Matchs</th>
-         <th>Buts</th>
-      </tr>
-      <tr class="separate">
-         <td><strong>1</strong></td>
-         <td class="left"><a>PLAYER A</a></td>
-         <td class="left"><a>CLUB 1</a></td>
-         <td>22</td>
-         <td>49</td>
-      </tr>
-      <tr class="odd ">
-         <td><strong>2</strong></td>
-         <td class="left"><a>PLAYER B</a></td>
-         <td class="left"><a>CLUB 2</a></td>
-         <td>22</td>
-         <td>30</td>
-      </tr>
-      <tr class="separate">
-         <td></td>
-         <td class="left"><a>PLAYER C</a></td>
-         <td class="left"><a>CLUB 2</a></td>
-         <td>21</td>
-         <td>30</td>
-      </tr>
-      <tr class="odd ">
-         <td><strong>3</strong></td>
-         <td class="left"><a>PLAYER D</a></td>
-         <td class="left"><a>CLUB 4</a></td>
-         <td>22</td>
-         <td>27</td>
-      </tr>
-   </tbody>
+<table class="scorers-table">
+  <tbody>
+	  <tr>
+		<td>1</td>
+		<td><a href="/league">NEYMAR</a></td>
+		<td><a href="/team">PSG</a></td>
+		<td>7</td>
+		<td>7</td>
+		<td>0</td>
+		<td>3</td>
+		<td>0'00</td>
+	  </tr>
+	  <tr>
+		<td>2</td>
+		<td><a href="/league">DEPAY</a></td>
+		<td><a href="/team">OL</a></td>
+		<td>5</td>
+		<td>5</td>
+		<td>0</td>
+		<td>2</td>
+		<td>0'00</td>
+	  </tr>
+	  <tr>
+		<td></td>
+		<td><a href="/league">MILIK</a></td>
+		<td><a href="/team">OM</a></td>
+		<td>5</td>
+		<td>5</td>
+		<td>0</td>
+		<td>2</td>
+		<td>0'10</td>
+	  </tr>
+  </tbody>
 </table>

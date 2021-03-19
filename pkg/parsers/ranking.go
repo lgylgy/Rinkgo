@@ -1,100 +1,55 @@
 package parsers
 
 import (
-	"golang.org/x/net/html"
+	"strconv"
 	"strings"
+
+	"github.com/PuerkitoBio/goquery"
+	"github.com/lgylgy/rinkgo/pkg/api"
 )
 
-type Rank struct {
-	Club         string
-	Points       string
-	Played       string
-	Won          string
-	Drawn        string
-	Lost         string
-	GoalsFor     string
-	GoalsAgainst string
+func convertToInteger(td *goquery.Selection) uint32 {
+	i, err := strconv.Atoi(td.Text())
+	if err != nil {
+		return 0
+	}
+	return uint32(i)
 }
 
-const (
-	club         = uint32(2)
-	points       = uint32(3)
-	played       = uint32(4)
-	won          = uint32(5)
-	drawn        = uint32(6)
-	lost         = uint32(7)
-	goalsFor     = uint32(9)
-	goalsAgainst = uint32(10)
-)
+func ParseRanking(data string) ([]*api.Rank, error) {
+	ranking := []*api.Rank{}
 
-func extractRanking(value string) ([]Rank, error) {
-	content, err := html.Parse(strings.NewReader(value))
+	doc, err := goquery.NewDocumentFromReader(strings.NewReader(data))
 	if err != nil {
 		return nil, err
 	}
-	table := []Rank{}
-	counter := uint32(0)
 
-	// Extract rank informations
-	var extractRankFields func(*html.Node, *Rank)
-	extractRankFields = func(n *html.Node, row *Rank) {
-		if n.Type == html.TextNode {
-			switch counter {
-			case club:
-				row.Club = n.Data
-			case points:
-				row.Points = n.Data
-			case played:
-				row.Played = n.Data
-			case won:
-				row.Won = n.Data
-			case drawn:
-				row.Drawn = n.Data
-			case lost:
-				row.Lost = n.Data
-			case goalsFor:
-				row.GoalsFor = n.Data
-			case goalsAgainst:
-				row.GoalsAgainst = n.Data
-			}
-		}
-		for c := n.FirstChild; c != nil; c = c.NextSibling {
-			extractRankFields(c, row)
-		}
-	}
-
-	// Extract rank
-	var extractRank func(*html.Node, *Rank)
-	extractRank = func(n *html.Node, row *Rank) {
-		if n.Type == html.ElementNode && n.Data == "td" {
-			counter++
-			extractRankFields(n, row)
-		}
-		for c := n.FirstChild; c != nil; c = c.NextSibling {
-			extractRank(c, row)
-		}
-	}
-
-	// Retrieve table
-	var extractTable func(*html.Node)
-	extractTable = func(n *html.Node) {
-		if n.Type == html.ElementNode {
-			for _, a := range n.Attr {
-				if a.Key == "class" && (a.Val == "separate" ||
-					a.Val == "odd separate" ||
-					a.Val == "odd " ||
-					a.Val == "") {
-					row := Rank{}
-					counter = uint32(0)
-					extractRank(n, &row)
-					table = append(table, row)
+	doc.Find(".ranking-table").Each(func(_ int, div *goquery.Selection) {
+		div.Find("tbody tr").Each(func(_ int, tr *goquery.Selection) {
+			rank := &api.Rank{}
+			tr.Find("td").Each(func(ix int, td *goquery.Selection) {
+				switch ix {
+				case 1:
+					rank.Team = td.Find("a").Text()
+				case 2:
+					rank.Points = convertToInteger(td)
+				case 3:
+					rank.Played = convertToInteger(td)
+				case 4:
+					rank.Won = convertToInteger(td)
+				case 7:
+					rank.Drawn = convertToInteger(td)
+				case 8:
+					rank.Lost = convertToInteger(td)
+				case 12:
+					rank.GoalsFor = convertToInteger(td)
+				case 13:
+					rank.GoalsAgainst = convertToInteger(td)
 				}
-			}
-		}
-		for c := n.FirstChild; c != nil; c = c.NextSibling {
-			extractTable(c)
-		}
-	}
-	extractTable(content)
-	return table, nil
+			})
+			ranking = append(ranking, rank)
+		})
+	})
+
+	return ranking, nil
 }
