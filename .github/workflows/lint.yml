@@ -1,7 +1,11 @@
-name: lint
+name: golangci-lint
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
+  pull_request:
 jobs:
   golangci:
     name: lint
@@ -9,6 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v1
+        uses: golangci/golangci-lint-action@v2
         with:
-          version: v1.28
+          version: v1.29
