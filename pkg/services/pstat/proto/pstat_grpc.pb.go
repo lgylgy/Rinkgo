@@ -97,5 +97,5 @@ var PStatService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/pstat.proto",
+	Metadata: "pkg/services/pstat/proto/pstat.proto",
 }
