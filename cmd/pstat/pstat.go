@@ -13,7 +13,7 @@ import (
 
 func main() {
 	port := flag.Int("port", 10000, "The server port")
-	url := flag.String("url", "https://competitions.ffroller.fr/competiteurs", "The database url")
+	url := flag.String("url", "", "The database url")
 	flag.Parse()
 
 	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", *port))
