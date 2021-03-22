@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  pstat:
+    container_name: pstat
+    build:
+      context: .
+      dockerfile: cmd/pstat/Dockerfile
+      args:
+        DBURL: "https://competitions.ffroller.fr/competiteurs"
+    ports:
+      - "5000:5000"
