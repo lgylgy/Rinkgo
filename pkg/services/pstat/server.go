@@ -69,6 +69,9 @@ func (ps *pStatServer) GetHistory(ctx context.Context, request *pb.Request) (*pb
 	if err != nil {
 		return nil, fmt.Errorf("unable to parse history information")
 	}
+	if p.Name == "" {
+		return nil, fmt.Errorf("unknown player")
+	}
 	ps.players[id] = p
 	return convertToProto(id, p), nil
 }
