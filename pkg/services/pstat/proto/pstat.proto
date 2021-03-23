@@ -4,8 +4,15 @@ package pstat;
 
 option go_package="github.com/lgylgy/rinkgo/pkg/services/pstat";
 
+import "google/protobuf/empty.proto";
+
 service PStatService{
+    rpc ListPlayers(google.protobuf.Empty) returns (Players);
     rpc GetHistory(Request) returns (History);
+}
+
+message Players {
+    repeated History players = 1;
 }
 
 message Request {

@@ -7,6 +7,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -18,6 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PStatServiceClient interface {
+	ListPlayers(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Players, error)
 	GetHistory(ctx context.Context, in *Request, opts ...grpc.CallOption) (*History, error)
 }
 
@@ -27,6 +29,15 @@ type pStatServiceClient struct {
 
 func NewPStatServiceClient(cc grpc.ClientConnInterface) PStatServiceClient {
 	return &pStatServiceClient{cc}
+}
+
+func (c *pStatServiceClient) ListPlayers(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Players, error) {
+	out := new(Players)
+	err := c.cc.Invoke(ctx, "/pstat.PStatService/ListPlayers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *pStatServiceClient) GetHistory(ctx context.Context, in *Request, opts ...grpc.CallOption) (*History, error) {
@@ -42,6 +53,7 @@ func (c *pStatServiceClient) GetHistory(ctx context.Context, in *Request, opts .
 // All implementations must embed UnimplementedPStatServiceServer
 // for forward compatibility
 type PStatServiceServer interface {
+	ListPlayers(context.Context, *emptypb.Empty) (*Players, error)
 	GetHistory(context.Context, *Request) (*History, error)
 	mustEmbedUnimplementedPStatServiceServer()
 }
@@ -50,6 +62,9 @@ type PStatServiceServer interface {
 type UnimplementedPStatServiceServer struct {
 }
 
+func (UnimplementedPStatServiceServer) ListPlayers(context.Context, *emptypb.Empty) (*Players, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListPlayers not implemented")
+}
 func (UnimplementedPStatServiceServer) GetHistory(context.Context, *Request) (*History, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetHistory not implemented")
 }
@@ -64,6 +79,24 @@ type UnsafePStatServiceServer interface {
 
 func RegisterPStatServiceServer(s grpc.ServiceRegistrar, srv PStatServiceServer) {
 	s.RegisterService(&PStatService_ServiceDesc, srv)
+}
+
+func _PStatService_ListPlayers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PStatServiceServer).ListPlayers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pstat.PStatService/ListPlayers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PStatServiceServer).ListPlayers(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _PStatService_GetHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -91,6 +124,10 @@ var PStatService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "pstat.PStatService",
 	HandlerType: (*PStatServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListPlayers",
+			Handler:    _PStatService_ListPlayers_Handler,
+		},
 		{
 			MethodName: "GetHistory",
 			Handler:    _PStatService_GetHistory_Handler,

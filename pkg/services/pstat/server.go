@@ -5,16 +5,19 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"sync"
 
 	"github.com/lgylgy/rinkgo/pkg/api"
 	"github.com/lgylgy/rinkgo/pkg/parsers"
 	pb "github.com/lgylgy/rinkgo/pkg/services/pstat/proto"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type pStatServer struct {
 	pb.UnimplementedPStatServiceServer
 	players map[int32]*api.Player
 	urlDB   string
+	mu      sync.Mutex
 }
 
 func NewPStatServer(urlDB string) *pStatServer {
@@ -56,6 +59,9 @@ func (ps *pStatServer) downloadHistory(id int32) (string, error) {
 }
 
 func (ps *pStatServer) GetHistory(ctx context.Context, request *pb.Request) (*pb.History, error) {
+	ps.mu.Lock()
+	defer ps.mu.Unlock()
+
 	id := request.GetPlayerID()
 	p, ok := ps.players[id]
 	if ok {
@@ -74,4 +80,18 @@ func (ps *pStatServer) GetHistory(ctx context.Context, request *pb.Request) (*pb
 	}
 	ps.players[id] = p
 	return convertToProto(id, p), nil
+}
+
+func (ps *pStatServer) ListPlayers(ctx context.Context, _ *emptypb.Empty) (*pb.Players, error) {
+	ps.mu.Lock()
+	defer ps.mu.Unlock()
+
+	response := &pb.Players{
+		Players: []*pb.History{},
+	}
+	for id, player := range ps.players {
+		response.Players = append(response.Players,
+			convertToProto(id, player))
+	}
+	return response, nil
 }
