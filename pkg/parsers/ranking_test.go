@@ -10,9 +10,7 @@ import (
 func TestParseRanking(t *testing.T) {
 	data := readFile(t, "ranking.txt")
 	ranking, err := ParseRanking(data)
-	if err != nil {
-		t.Errorf("could not read test file ranking.txt: %s", err)
-	}
+	require.NoError(t, err, "could not read test file ranking.txt")
 
 	require.Len(t, ranking, 4)
 	require.Equal(t, ranking,

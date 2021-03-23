@@ -1,0 +1,33 @@
+<table class="competitor-matchs-tab">
+  <thead>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        Day 1
+      </td>
+      <td>08/05/2022</td>
+      <td>Ligue 1</td>
+      <td>PSG 3 - 8 EAG</td>
+      <td>Time</td>
+    </tr>
+    <tr>
+      <td>
+        Day 2
+      </td>
+      <td>17/04/2022</td>
+      <td>Ligue 1</td>
+      <td>SB29 7 - 3 PSG</td>
+      <td>Time</td>
+    </tr>
+    <tr>
+      <td>
+        Day 3
+      </td>
+      <td>20/03/2022</td>
+      <td>Coupe de france</td>
+      <td>PSG 6 - 5 LORIENT</td>
+      <td>Time</td>
+    </tr>
+  </tbody>
+</table>

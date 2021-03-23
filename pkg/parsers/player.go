@@ -19,9 +19,9 @@ func readFile(t *testing.T, filename string) string {
 	return string(data)
 }
 
-func ParsePlayer(data string) (*api.Player, error) {
-	player := &api.Player{
-		History: []*api.Entry{},
+func ParsePlayerGoals(data string) (*api.PlayerGoals, error) {
+	player := &api.PlayerGoals{
+		History: []*api.HistoryGoals{},
 	}
 
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(data))
@@ -40,7 +40,7 @@ func ParsePlayer(data string) (*api.Player, error) {
 
 	doc.Find(".competitor-stats-tab").Each(func(_ int, div *goquery.Selection) {
 		div.Find("tbody tr").Each(func(_ int, tr *goquery.Selection) {
-			entry := &api.Entry{}
+			entry := &api.HistoryGoals{}
 			tr.Find("td").Each(func(ix int, td *goquery.Selection) {
 				switch ix {
 				case 0:
@@ -50,7 +50,7 @@ func ParsePlayer(data string) (*api.Player, error) {
 				case 2:
 					entry.Event = td.Text()
 				case 3:
-					entry.Matchs = convertToInteger(td)
+					entry.Games = convertToInteger(td)
 				case 4:
 					entry.Goals = convertToInteger(td)
 				}

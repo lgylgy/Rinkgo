@@ -1,23 +1,23 @@
 package api
 
-type Entry struct {
+type HistoryGoals struct {
 	Season string
 	Team   string
 	Event  string
-	Matchs uint32
+	Games  uint32
 	Goals  uint32
 }
 
-type Player struct {
+type PlayerGoals struct {
 	Name    string
-	History []*Entry
+	History []*HistoryGoals
 }
 
 type Scorer struct {
-	Name   string
-	Team   string
-	Matchs uint32
-	Goals  uint32
+	Name  string
+	Team  string
+	Games uint32
+	Goals uint32
 }
 
 type Rank struct {
@@ -36,4 +36,14 @@ type Result struct {
 	HomeTeam string
 	Score    string
 	OutTeam  string
+}
+
+type HistoryGames struct {
+	Event string
+	Game  string
+}
+
+type PlayerGoalsPerGames struct {
+	Name    string
+	History []*HistoryGames
 }

@@ -10,9 +10,8 @@ import (
 func TestParseResults(t *testing.T) {
 	data := readFile(t, "results.txt")
 	results, err := ParseResults(data)
-	if err != nil {
-		t.Errorf("could not read test file results.txt: %s", err)
-	}
+	require.NoError(t, err, "could not read test file results.txt")
+
 	require.Len(t, results, 3)
 	require.Equal(t, results,
 		[]*api.Result{

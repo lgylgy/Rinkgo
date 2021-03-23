@@ -15,26 +15,26 @@ import (
 
 type pStatServer struct {
 	pb.UnimplementedPStatServiceServer
-	players map[int32]*api.Player
+	players map[int32]*api.PlayerGoals
 	urlDB   string
 	mu      sync.Mutex
 }
 
 func NewPStatServer(urlDB string) *pStatServer {
 	return &pStatServer{
-		players: make(map[int32]*api.Player),
+		players: make(map[int32]*api.PlayerGoals),
 		urlDB:   urlDB,
 	}
 }
 
-func convertToProto(id int32, player *api.Player) *pb.History {
+func convertToProto(id int32, player *api.PlayerGoals) *pb.History {
 	entries := []*pb.Entry{}
 	for _, v := range player.History {
 		entries = append(entries, &pb.Entry{
 			Season: v.Season,
 			Team:   v.Team,
 			Event:  v.Event,
-			Matchs: int32(v.Matchs),
+			Matchs: int32(v.Games),
 			Goals:  int32(v.Goals),
 		})
 	}
@@ -71,7 +71,7 @@ func (ps *pStatServer) GetHistory(ctx context.Context, request *pb.Request) (*pb
 	if err != nil {
 		return nil, fmt.Errorf("unable to retrieve history information")
 	}
-	p, err = parsers.ParsePlayer(data)
+	p, err = parsers.ParsePlayerGoals(data)
 	if err != nil {
 		return nil, fmt.Errorf("unable to parse history information")
 	}

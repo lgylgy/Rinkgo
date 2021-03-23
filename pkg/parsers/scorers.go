@@ -27,7 +27,7 @@ func ParseScorers(data string) ([]*api.Scorer, error) {
 				case 4:
 					scorer.Goals = convertToInteger(td)
 				case 6:
-					scorer.Matchs = convertToInteger(td)
+					scorer.Games = convertToInteger(td)
 				}
 			})
 			scorers = append(scorers, scorer)
