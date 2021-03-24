@@ -7,6 +7,6 @@ services:
       context: .
       dockerfile: cmd/pstat/Dockerfile
       args:
-        DBURL: "https://competitions.ffroller.fr/competiteurs"
+        DBURL: ""
     ports:
       - "5000:5000"
